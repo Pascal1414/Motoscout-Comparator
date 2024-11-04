@@ -3,8 +3,14 @@
     "name": "Motorcycle Comparator",
     "description": "Motorcycle Comparator",
     "version": "1.0",
-    "action": {
-        "default_popup": "popup.html",
-        "default_icon": "icon.png"
-    }
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.motoscout24.ch/*"
+            ],
+            "js": [
+                "main.js"
+            ]
+        }
+    ]
 }
