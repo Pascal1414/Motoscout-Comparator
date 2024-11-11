@@ -4,71 +4,52 @@ const currentRoute = window.location.pathname;
 
 const regex = /\/s(\/|$)/;
 if (regex.test(currentRoute)) {
-    // get the following tag with the type: <script type="application/ld+json" >
-    const script = document.querySelector('script[type="application/ld+json"]');
-    // get the content of the script tag
-    const scriptContent = JSON.parse(script.textContent);
-    console.log("scriptContent", scriptContent);
-
-    const items = scriptContent.mainEntity.offers.itemListElement;
+  getContent().then((items) => {
     console.log("items", items);
-
-    const html = getHTML(items);
-    // add "<link rel="stylesheet" href="path/to/your/charts.min.css">" to header
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css';
-    document.head.appendChild(link);
-
-    // Append content to the body
-    const body = document.querySelector('body');
-    body.innerHTML = html;
+  });
 
 } else {
-    console.log('This is not a valid route');
+  console.log('This is not a valid route');
 }
 
 
-function getHTML(items) {
-    // Normalize the data to a 0-1 range for chart display
-    function normalizeData(data, key) {
-        const values = data.map(item => item[key]);
-        const min = Math.min(...values);
-        const max = Math.max(...values);
-        return data.map(item => (item[key] - min) / (max - min));
+async function getContent(pageId = 0, items = []) {
+  const querry = `pagination[page] = ${pageId}`;
+  const url = currentRoute + '?' + querry;
+
+  try {
+    // Fetch url
+    const response = await fetch(url);
+    if (!response.ok) {
+      console.error(`Error fetching page ${pageId}: ${response.status}`);
+      return items;
     }
 
-    const normalizedPrices = normalizeData(items, 'price');
-    const normalizedKms = normalizeData(items, 'km');
+    const htmlText = await response.text();
+    // Parse the HTML string into a DOM object
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, 'text/html');
 
-    // Generate the table rows for each item
-    const rows = items.map((item, index) => {
-        return `
-      <tr>
-        <td style="--start: ${normalizedKms[index]}; --end: ${normalizedKms[index] + 0.01};">
-          <span class="data">${item.km} km</span>
-        </td>
-        <td style="--start: 0; --end: ${normalizedPrices[index]};">
-          <span class="data">$${(item.price / 1000).toFixed(1)}K</span>
-        </td>
-      </tr>
-    `;
-    }).join('');
+    // get the following tag with the type: <script type="application/ld+json" >
+    const script = doc.querySelector('script[type="application/ld+json"]');
+    if (!script) {
+      console.error(`Script tag not found on page ${pageId}`);
+      return items;
+    }
 
-    // Return the full HTML structure
-    return `
-    <div class="chart-container">
-      <div id="my-chart">
-        <table class="charts-css line show-heading show-primary-axis show-data-axes">
-          <caption>Price vs Kilometer Chart</caption>
-          <!-- Table headers for labels -->
-          <tr>
-            <th scope="col">Kilometers (in %)</th>
-            <th scope="col">Price (in %)</th>
-          </tr>
-          ${rows}
-        </table>
-      </div>
-    </div>
-  `;
+    // get the content of the script tag
+    const scriptContent = JSON.parse(script.textContent);
+
+    const currItems = scriptContent.mainEntity.offers.itemListElement;
+
+    if (!currItems || currItems.length === 0) {
+      return items;
+    }
+
+    // Continue fetching the next page
+    return await getContent(pageId + 1, items.concat(currItems));
+  } catch (error) {
+    console.error(`Error processing page ${pageId}: ${error.message}`);
+    return items;
+  }
 }
