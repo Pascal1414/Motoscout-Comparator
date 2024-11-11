@@ -4,8 +4,10 @@ const currentRoute = window.location.pathname;
 
 const regex = /\/s(\/|$)/;
 if (regex.test(currentRoute)) {
-  getContent().then((items) => {
+  getContent().then((resItems) => {
+    const items = serializeItems(resItems)
     console.log("items", items);
+
   });
 
 } else {
@@ -52,4 +54,16 @@ async function getContent(pageId = 0, items = []) {
     console.error(`Error processing page ${pageId}: ${error.message}`);
     return items;
   }
+}
+
+function serializeItems(items) {
+  return items.map((item) => {
+    return {
+      name: item.name,
+      price: item.offers.price,
+      year: item.year,
+      km: item.offers.itemOffered.mileageFromOdometer.value,
+      url: item.url
+    };
+  });
 }
