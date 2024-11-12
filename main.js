@@ -74,13 +74,21 @@ function displayItems(items) {
   container.style.margin = '20px';
   container.style.padding = '10px';
   container.style.border = '1px solid #ddd';
+  container.style.width = '60%';
   container.style.backgroundColor = '#f9f9f9';
-  document.body.appendChild(container);
+  const ul = document.querySelector('[role=list]');
+  ul.parentNode.insertBefore(container, ul);
+
 
   // Create a title for the container
   const title = document.createElement('h2');
   title.textContent = 'Motorcycle Price Comparison';
   container.appendChild(title);
+
+  // Create a subtitle that displays the number of items
+  const subtitle = document.createElement('h3');
+  subtitle.textContent = `Found ${items.length} items`;
+  container.appendChild(subtitle);
 
   // Create a canvas element for the chart
   const canvas = document.createElement('canvas');
@@ -92,29 +100,51 @@ function displayItems(items) {
     return { x: item.km, y: item.price, label: item.name };
   });
 
-
+  const links = items.map((item) => item.url);
 
   const chartJsUrl = chrome.runtime.getURL('assets/chart.js');
   (async () => {
     try {
       await import(chartJsUrl);
 
-
       // Create the chart
-      new Chart(canvas, {
+      const chart = new Chart(canvas, {
         type: 'scatter',
         data: {
           datasets: [{
             pointRadius: 4,
             pointBackgroundColor: "rgba(0,0,255,1)",
-            data: xyValues
+            data: xyValues,
+
           }]
         }, options: {
+          onClick: (event, elements) => {
+            // Check if a data point was clicked
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              const link = links[index];
+
+              if (link) {
+                // Open the link in a new tab
+                window.open(link, '_blank');
+              }
+            }
+          },
           responsive: true,
           scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Km'
+              }
+            },
             y: {
-              beginAtZero: true
-            }
+              title: {
+                display: true,
+                text: 'Price'
+              }
+            },
+
           }
         }
       });
