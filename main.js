@@ -1,6 +1,7 @@
 
 // Get current route
 const currentRoute = window.location.pathname;
+const search = window.location.search;
 
 const regex = /\/s(\/|$)/;
 if (regex.test(currentRoute)) {
@@ -16,7 +17,14 @@ if (regex.test(currentRoute)) {
 
 async function getContent(pageId = 0, items = []) {
   const querry = `pagination[page] = ${pageId}`;
-  const url = currentRoute + '?' + querry;
+
+  let url = ""
+  if (search)
+    url = currentRoute + search + "&" + querry;
+  else
+    url = currentRoute + "?" + querry;
+
+  console.log("Fetching Content from: ", url);
 
   try {
     // Fetch url
