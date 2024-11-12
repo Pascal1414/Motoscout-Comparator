@@ -6,8 +6,7 @@ const regex = /\/s(\/|$)/;
 if (regex.test(currentRoute)) {
   getContent().then((resItems) => {
     const items = serializeItems(resItems)
-    console.log("items", items);
-
+    displayItems(items);
   });
 
 } else {
@@ -61,9 +60,73 @@ function serializeItems(items) {
     return {
       name: item.name,
       price: item.offers.price,
-      year: item.year,
+      year: null,
       km: item.offers.itemOffered.mileageFromOdometer.value,
       url: item.url
     };
   });
 }
+
+// Function to display items in a graph (Chart.js)
+function displayItems(items) {
+  // Create a container div for the graph
+  const container = document.createElement('div');
+  container.style.margin = '20px';
+  container.style.padding = '10px';
+  container.style.border = '1px solid #ddd';
+  container.style.backgroundColor = '#f9f9f9';
+  document.body.appendChild(container);
+
+  // Create a title for the container
+  const title = document.createElement('h2');
+  title.textContent = 'Motorcycle Price Comparison';
+  container.appendChild(title);
+
+  // Create a canvas element for the chart
+  const canvas = document.createElement('canvas');
+  canvas.id = 'myChart';
+  container.appendChild(canvas);
+
+  // Prepare data for the chart (e.g., names and prices)
+  const labels = items.map(item => item.name);
+  const prices = items.map(item => item.price);
+
+  const chartJsUrl = chrome.runtime.getURL('assets/chart.js');
+  (async () => {
+    try {
+      const ChartModule = await import(chartJsUrl);
+
+      // Access the named export 'Chart'
+
+      // Check if the import was successful
+      console.log("Chart.js loaded as a module", Chart, chartJsUrl);
+
+      // Create the chart
+      new ChartModule.Chart(canvas, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Price Comparison',
+            data: prices,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    } catch (error) {
+      console.error('Error creating chart:', error);
+    }
+  }
+  )();
+}
+
