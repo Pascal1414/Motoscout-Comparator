@@ -108,10 +108,11 @@ function displayItems(items) {
       await import(chartJsUrl);
 
       // Create the chart
-      const chart = new Chart(canvas, {
+      new Chart(canvas, {
         type: 'scatter',
         data: {
           datasets: [{
+            label: 'Offers',
             pointRadius: 4,
             pointBackgroundColor: "rgba(0,0,255,1)",
             data: xyValues,
