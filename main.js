@@ -87,34 +87,29 @@ function displayItems(items) {
   canvas.id = 'myChart';
   container.appendChild(canvas);
 
-  // Prepare data for the chart (e.g., names and prices)
-  const labels = items.map(item => item.name);
-  const prices = items.map(item => item.price);
+
+  const xyValues = items.map((item, index) => {
+    return { x: item.km, y: item.price, label: item.name };
+  });
+
+
 
   const chartJsUrl = chrome.runtime.getURL('assets/chart.js');
   (async () => {
     try {
-      const ChartModule = await import(chartJsUrl);
+      await import(chartJsUrl);
 
-      // Access the named export 'Chart'
-
-      // Check if the import was successful
-      console.log("Chart.js loaded as a module", Chart, chartJsUrl);
 
       // Create the chart
-      new ChartModule.Chart(canvas, {
-        type: 'bar',
+      new Chart(canvas, {
+        type: 'scatter',
         data: {
-          labels: labels,
           datasets: [{
-            label: 'Price Comparison',
-            data: prices,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
+            pointRadius: 4,
+            pointBackgroundColor: "rgba(0,0,255,1)",
+            data: xyValues
           }]
-        },
-        options: {
+        }, options: {
           responsive: true,
           scales: {
             y: {
