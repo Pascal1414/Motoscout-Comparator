@@ -54,8 +54,13 @@ loadButton.onclick = () => {
   }
 };
 
-// create a container div for injecting the content
+// create a container or get the existing for injecting the content
+const existingContainer = document.getElementById('.chart-container');
+if (existingContainer) {
+  existingContainer.remove();
+}
 const container = document.createElement('div');
+container.id = 'chart-container';
 
 // Append the button
 container.appendChild(loadButton);
