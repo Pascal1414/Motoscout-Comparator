@@ -1,18 +1,59 @@
+let currentRoute = undefined;
+let search = undefined;
 
-// Get current route
-const currentRoute = window.location.pathname;
-const search = window.location.search;
+// Create a button that will be injected into the page
+const loadButton = document.createElement('button');
+loadButton.textContent = 'Generate Chart';
 
-const regex = /\/s(\/|$)/;
-if (regex.test(currentRoute)) {
-  getContent().then((resItems) => {
-    const items = serializeItems(resItems)
-    displayItems(items);
-  });
+loadButton.style.cssText = `
+  filter: brightness(1.1);
+  display: inline-flex;
+  appearance: none;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: break-spaces;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border-radius: var(--chakra-radii-sm);
+  padding-inline-start: var(--chakra-space-4xl);
+  padding-inline-end: var(--chakra-space-4xl);
+  height: var(--chakra-sizes-lg);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  line-height: 1.25;
+  font-size: 1rem;
+  background: var(--chakra-colors-brand-primary);
+  color: var(--chakra-colors-black);
+  box-shadow: var(--chakra-shadows-button);
+  width: auto;
+`;
 
-} else {
-  console.log('This is not a valid route');
-}
+
+
+
+loadButton.onclick = () => {
+  // Get current route
+  currentRoute = window.location.pathname;
+  search = window.location.search;
+
+  const regex = /\/s(\/|$)/;
+  if (regex.test(currentRoute)) {
+    getContent().then((resItems) => {
+      const items = serializeItems(resItems)
+      displayItems(items);
+    });
+
+  } else {
+    console.log('This is not a valid route');
+  }
+};
+
+// Append the button to the body
+const ul = document.querySelector('[role=list]');
+ul.parentNode.insertBefore(loadButton, ul);
 
 
 async function getContent(pageId = 0, items = []) {
@@ -163,4 +204,3 @@ function displayItems(items) {
   }
   )();
 }
-
