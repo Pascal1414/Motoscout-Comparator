@@ -73,8 +73,6 @@ const ul = document.querySelector('[role=list]');
 ul.parentNode.insertBefore(container, ul);
 
 
-
-
 async function getContent(pageId = 0, items = []) {
   const querry = `pagination[page] = ${pageId}`;
 
