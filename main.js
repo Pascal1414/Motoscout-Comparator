@@ -1,7 +1,7 @@
 let currentRoute = undefined;
 let search = undefined;
 
-// Create a button that will be injected into the page
+// Create a button
 const loadButton = document.createElement('button');
 loadButton.textContent = 'Generate Chart';
 
@@ -29,15 +29,18 @@ loadButton.style.cssText = `
   color: var(--chakra-colors-black);
   box-shadow: var(--chakra-shadows-button);
   width: auto;
+  margin-bottom: 7px;
 `;
-
-
-
 
 loadButton.onclick = () => {
   // Get current route
   currentRoute = window.location.pathname;
   search = window.location.search;
+
+  // Remove existing content
+  diagramContainer.childNodes.forEach((child) => {
+    diagramContainer.removeChild(child);
+  });
 
   const regex = /\/s(\/|$)/;
   if (regex.test(currentRoute)) {
@@ -51,9 +54,20 @@ loadButton.onclick = () => {
   }
 };
 
-// Append the button to the body
+// create a container div for injecting the content
+const container = document.createElement('div');
+
+// Append the button
+container.appendChild(loadButton);
+
+const diagramContainer = document.createElement('div');
+container.appendChild(diagramContainer);
+
+// Append the container to the body
 const ul = document.querySelector('[role=list]');
-ul.parentNode.insertBefore(loadButton, ul);
+ul.parentNode.insertBefore(container, ul);
+
+
 
 
 async function getContent(pageId = 0, items = []) {
@@ -125,8 +139,8 @@ function displayItems(items) {
   container.style.border = '1px solid #ddd';
   container.style.width = '60%';
   container.style.backgroundColor = '#f9f9f9';
-  const ul = document.querySelector('[role=list]');
-  ul.parentNode.insertBefore(container, ul);
+
+  diagramContainer.appendChild(container);
 
 
   // Create a title for the container
