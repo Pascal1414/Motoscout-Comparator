@@ -10,4 +10,6 @@ Das Icon ist von [Font Awesome](https://fontawesome.com/).
 
 ## Anleitung
 
-Wird die Seite [motoscout24.ch](https://www.motoscout24.ch) aufgerufen erscheit unter den Filtern ein neuer Button `Generate Chart`. Wird dieser angeklickt, wird ein Chart erstellt. Die Datenpunkte im Diagramm können angeklickt werden. Wird der Filter oder das Modell/Marke geändert, muss das Diagramm mit einem Klick auf `Generate Chart` aktualisiert werden.
+Wird die Seite [motoscout24.ch](https://www.motoscout24.ch) aufgerufen erscheit unter den Filtern ein neuer Button `Generate Chart`. Wird dieser angeklickt, wird ein Chart erstellt. Die Datenpunkte im Diagramm können angeklickt werden.
+
+Wichtig: Wird der Filter oder das Modell/Marke geändert, muss das Diagramm mit einem Klick auf `Generate Chart` aktualisiert werden.
