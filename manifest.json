@@ -9,6 +9,10 @@
         "48": "assets/icon48.jpg",
         "128": "assets/icon128.jpg"
     },
+    "permissions": [
+        "scripting",
+        "activeTab"
+    ],
     "content_scripts": [
         {
             "matches": [
