@@ -8,8 +8,6 @@ Das Icon ist von [Font Awesome](https://fontawesome.com/).
 1. Öffne [about:debugging#/runtime/this-firefox](about:debugging#/runtime/this-firefox)
 1. Klicke auf `Temporäres Add-on laden...`
 
-## Mögliche Probleme
+## Anleitung
 
-### Es wird kein Diagramm angezegit
-
-Wird kein Diagramm angezeigt, dann lade die Seite neu. Nach einer kurzen Zeit sollte das Diagramm dann erscheinen.
+Wird die Seite [motoscout24.ch](https://www.motoscout24.ch) aufgerufen erscheit unter den Filtern ein neuer Button `Generate Chart`. Wird dieser angeklickt, wird ein Chart erstellt. Die Datenpunkte im Diagramm können angeklickt werden. Wird der Filter oder das Modell/Marke geändert, muss das Diagramm mit einem Klick auf `Generate Chart` aktualisiert werden.
