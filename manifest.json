@@ -32,5 +32,10 @@
                 "*://*.motoscout24.ch/*"
             ]
         }
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "motoscout-comparator@pascalrieder.ch"
+        }
+    }
 }
