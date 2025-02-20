@@ -158,7 +158,7 @@ function displayItems(items) {
 
   // Create a subtitle that displays the number of items
   const subtitle = document.createElement("h3");
-  subtitle.textContent = `Found ${items.length} items`;
+  subtitle.textContent = `Found ${items.length} motorcycles`;
   container.appendChild(subtitle);
 
   // Create a canvas element for the chart
@@ -183,7 +183,7 @@ function displayItems(items) {
         data: {
           datasets: [
             {
-              label: "Offers",
+              label: "Motorcycle Listings",
               pointRadius: 4,
               pointBackgroundColor: "rgba(0,0,255,1)",
               data: xyValues,
@@ -204,6 +204,15 @@ function displayItems(items) {
             }
           },
           responsive: true,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  return context.raw.label;
+                },
+              },
+            },
+          },
           scales: {
             x: {
               title: {
