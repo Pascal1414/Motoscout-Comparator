@@ -29,3 +29,10 @@
     background: var(--chakra-colors-brand-200);
     box-shadow: none;
 }
+
+.flex-horizontal-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}

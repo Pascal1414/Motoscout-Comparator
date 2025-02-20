@@ -5,8 +5,10 @@ removeExistingConatiner();
 
 const injectHTML = `
   <div id="chart-container">
-    <button id="load-button">Generate Chart</button>
-    <p id="pagination-display"></p>
+    <div class="flex-horizontal-container">
+      <button id="load-button">Generate Chart</button>
+      <p id="pagination-display"></p>
+    </div>
     <div id="diagram-container">
     </div>
   </div>
