@@ -1,4 +1,4 @@
-.load-button {
+#load-button {
     filter: brightness(1.1);
     display: inline-flex;
     appearance: none;
@@ -25,7 +25,7 @@
     margin-bottom: 7px;
 }
 
-.load-button:disabled {
+#load-button:disabled {
     background: var(--chakra-colors-brand-200);
     box-shadow: none;
 }
