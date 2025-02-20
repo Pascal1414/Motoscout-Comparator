@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Motorcycle Comparator",
-    "description": "An extension that creates a chart from the motoscout offers that match the filters. It allows to compare the prices of the motorcycles.",
+    "description": "An extension that creates a chart from the motoscout offers that match the filters. It allows to compare the prices of the motorcycles. This is NOT an official extension from motoscout24.ch.",
     "version": "1.0",
     "icons": {
         "16": "assets/icon16.jpg",
@@ -10,8 +10,10 @@
         "128": "assets/icon128.jpg"
     },
     "permissions": [
-        "scripting",
-        "activeTab"
+        "scripting"
+    ],
+    "host_permissions": [
+        "*://*.motoscout24.ch/*"
     ],
     "content_scripts": [
         {
