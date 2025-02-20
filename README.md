@@ -1,5 +1,7 @@
 # Motoscout-Comparator
 
+Dies ist keine offizielle Erweiterung von Motoscout24!
+
 Das Icon ist von [Font Awesome](https://fontawesome.com/).
 
 ## Testen
