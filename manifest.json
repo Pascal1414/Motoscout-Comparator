@@ -18,7 +18,8 @@
     "content_scripts": [
         {
             "matches": [
-                "*://*.motoscout24.ch/*"
+                "*://*.motoscout24.ch/*/s/*",
+                "*://*.motoscout24.ch/*/s"
             ],
             "js": [
                 "main.js"
@@ -34,7 +35,8 @@
                 "assets/chart.js"
             ],
             "matches": [
-                "*://*.motoscout24.ch/*"
+                "*://*.motoscout24.ch/*/s/*",
+                "*://*.motoscout24.ch/*/s"
             ]
         }
     ],
