@@ -4,33 +4,7 @@ let search = undefined;
 // Create a button
 const loadButton = document.createElement('button');
 loadButton.textContent = 'Generate Chart';
-
-loadButton.style.cssText = `
-  filter: brightness(1.1);
-  display: inline-flex;
-  appearance: none;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  position: relative;
-  white-space: break-spaces;
-  vertical-align: middle;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  border-radius: var(--chakra-radii-sm);
-  padding-inline-start: var(--chakra-space-4xl);
-  padding-inline-end: var(--chakra-space-4xl);
-  height: var(--chakra-sizes-lg);
-  font-family: var(--font-primary);
-  font-weight: 700;
-  line-height: 1.25;
-  font-size: 1rem;
-  background: var(--chakra-colors-brand-primary);
-  color: var(--chakra-colors-black);
-  box-shadow: var(--chakra-shadows-button);
-  width: auto;
-  margin-bottom: 7px;
-`;
+loadButton.classList.add('load-button');
 
 loadButton.onclick = () => {
   // Get current route
@@ -44,9 +18,11 @@ loadButton.onclick = () => {
 
   const regex = /\/s(\/|$)/;
   if (regex.test(currentRoute)) {
+    disableButton();
     getContent().then((resItems) => {
       const items = serializeItems(resItems)
       displayItems(items);
+      enableButton();
     });
 
   } else {
@@ -72,6 +48,13 @@ container.appendChild(diagramContainer);
 const ul = document.querySelector('[role=list]');
 ul.parentNode.insertBefore(container, ul);
 
+function disableButton() {
+  loadButton.disabled = true;
+}
+
+function enableButton() {
+  loadButton.disabled = false;
+}
 
 async function getContent(pageId = 0, items = []) {
   const querry = `pagination[page] = ${pageId}`;
