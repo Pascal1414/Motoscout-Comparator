@@ -1,1 +1,12 @@
-{}
+{
+    "addons": {
+        "{abcd1234-1abc-1234-12ab-abcdef123456}": {
+            "updates": [
+                {
+                    "version": "1.0",
+                    "update_link": "https://github.com/Pascal1414/Motoscout-Comparator/releases/download/v1.0/Motoscout-Comparator-1.0.xpi"
+                }
+            ]
+        }
+    }
+}
