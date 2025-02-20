@@ -144,11 +144,10 @@ function serializeItems(items) {
 function displayItems(items) {
   // Create a container div for the graph
   const container = document.createElement("div");
-  container.style.margin = "20px";
   container.style.padding = "10px";
   container.style.border = "1px solid #ddd";
-  container.style.width = "60%";
-  container.style.backgroundColor = "#f9f9f9";
+  container.style.width = "70%";
+  container.style.margin = "3px 0 10px 0";
 
   diagramContainer.appendChild(container);
 

@@ -22,7 +22,6 @@
     color: var(--chakra-colors-black);
     box-shadow: var(--chakra-shadows-button);
     width: auto;
-    margin-bottom: 7px;
 }
 
 #load-button:disabled {
@@ -35,4 +34,5 @@
     flex-direction: row;
     gap: 15px;
     align-items: center;
+    margin-bottom: 7px;
 }
