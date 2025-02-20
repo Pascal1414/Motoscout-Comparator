@@ -184,8 +184,7 @@ function displayItems(items) {
           datasets: [
             {
               label: "Motorcycle Listings",
-              pointRadius: 4,
-              pointBackgroundColor: "rgba(0,0,255,1)",
+              pointRadius: 5,
               data: xyValues,
             },
           ],
