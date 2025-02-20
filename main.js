@@ -65,9 +65,17 @@ function removeExistingConatiner() {
   }
 }
 
-function displayPaginationId(pageId) {
+/**
+ * @param {number} pageNumber  pageNumber is id + 1
+ */
+function displayPaginationNumber(pageNumber) {
   const diagramContainer = document.getElementById("pagination-display");
-  diagramContainer.textContent = `Crawling page: ${pageId}`;
+  diagramContainer.textContent = `Crawling page: ${pageNumber}`;
+}
+
+function displayPaginationFinished(finalPageNumber) {
+  const diagramContainer = document.getElementById("pagination-display");
+  diagramContainer.textContent = `Finished crawling. ${finalPageNumber} pages found.`;
 }
 
 async function getContent(pageId = 0, items = []) {
@@ -77,7 +85,7 @@ async function getContent(pageId = 0, items = []) {
   if (search) url = currentRoute + search + "&" + querry;
   else url = currentRoute + "?" + querry;
 
-  displayPaginationId(pageId);
+  displayPaginationNumber(pageId + 1);
 
   try {
     // Fetch url
@@ -105,6 +113,8 @@ async function getContent(pageId = 0, items = []) {
     const currItems = scriptContent.mainEntity.offers.itemListElement;
 
     if (!currItems || currItems.length === 0) {
+      // pageId + 1 minus the last page -> pageId +-0
+      displayPaginationFinished(pageId);
       return items;
     }
 
