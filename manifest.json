@@ -40,7 +40,8 @@
     ],
     "browser_specific_settings": {
         "gecko": {
-            "id": "motoscout-comparator@pascalrieder.ch"
+            "id": "motoscout-comparator@pascalrieder.ch",
+            "update_url": "https://raw.githubusercontent.com/Pascal1414/Motoscout-Comparator/refs/heads/release/release/update-maninfest.json"
         }
     }
 }
