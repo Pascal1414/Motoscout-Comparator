@@ -31,7 +31,7 @@ loadButton.onclick = () => {
 };
 
 // create a container or get the existing for injecting the content
-const existingContainer = document.getElementById('.chart-container');
+const existingContainer = document.getElementById('chart-container');
 if (existingContainer) {
   existingContainer.remove();
 }
